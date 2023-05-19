@@ -2,12 +2,35 @@
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.println("Hello and welcome!");
-        System.out.println("Hai Willy");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
+        // Create a bank object
+        Bank bank = new Bank();
+
+        // Create some account objects
+        Account a1 = new Account(1001, "Alice", 5000);
+        Account a2 = new Account(1002, "Bob", 3000);
+        Account a3 = new Account(1003, "Charlie", 4000);
+
+        // Add some accounts to the bank
+        bank.addAccount(a1);
+        bank.addAccount(a2);
+        bank.addAccount(a3);
+
+        // Display all accounts
+        bank.displayAllAccounts();
+
+        // Delete an account by its number
+        bank.deleteAccount(1002);
+
+        // Display all accounts again
+        bank.displayAllAccounts();
+
+        // Update an account by its number
+        bank.updateAccount(1003, "Chloe", 4500);
+
+        // Display all accounts again
+        bank.displayAllAccounts();
 
     }
+
 }
