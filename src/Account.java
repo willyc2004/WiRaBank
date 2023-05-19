@@ -35,23 +35,7 @@ public class Account {
         this.balance = balance;
     }
 
-    public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            System.out.println("Deposit successful. New balance: " + balance);
-        } else {
-            System.out.println("Invalid amount. Deposit failed.");
-        }
-    }
 
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            System.out.println("Withdrawal successful. New balance: " + balance);
-        } else {
-            System.out.println("Invalid amount or insufficient funds. Withdrawal failed.");
-        }
-    }
 
     public void display() {
         System.out.println("Account number: " + accountnumber);

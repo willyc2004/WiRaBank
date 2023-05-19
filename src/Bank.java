@@ -9,31 +9,13 @@ public class Bank {
     }
 
     public void addAccount(Account account) {
-
-        // Add the account object to the linked list
         accounts.add(account);
-
         System.out.println("Account added successfully.");
-
     }
 
-    public void deleteAccount(int number) {
-
-        for (int i = 0; i < accounts.size(); i++) {
-
-            // Get the account object at the current index
-            Account current = accounts.get(i);
-
-            if (current.getAccountnumber() == number) {
-                accounts.remove(i);
-                System.out.println("Account deleted successfully.");
-                return;
-            }
-
-        }
-
-        System.out.println("Account not found. Deletion failed.");
-
+    public void deleteAccount(Account account){
+        accounts.remove(account);
+        System.out.println("Account removed successfully");
     }
 
     public void updateAccount(int number, String newName, double newBalance) {
@@ -46,10 +28,26 @@ public class Bank {
                 System.out.println("Account updated successfully.");
                 return;
             }
-
         }
         System.out.println("Account not found. Update failed.");
+    }
 
+    public void deposit(Account account, double amount) {
+        if (amount > 0) {
+            account.setBalance(account.getBalance() + amount);
+            System.out.println("Deposit successful. New balance: " + account.getBalance());
+        } else {
+            System.out.println("Invalid amount. Deposit failed.");
+        }
+    }
+
+    public void withdraw(Account account, double amount) {
+        if (amount > 0 && amount <= account.getBalance()) {
+            account.setBalance(account.getBalance() - amount);
+            System.out.println("Withdraw successful. New balance: " + account.getBalance());
+        } else {
+            System.out.println("Invalid amount or insufficient funds. Withdrawal failed.");
+        }
     }
 
     public void displayAllAccounts() {

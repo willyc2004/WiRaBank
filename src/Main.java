@@ -6,6 +6,7 @@ public class Main {
         // Create a bank object
         Bank bank = new Bank();
 
+
         // Create some account objects
         Account a1 = new Account(1001, "Alice", 5000);
         Account a2 = new Account(1002, "Bob", 3000);
@@ -16,17 +17,21 @@ public class Main {
         bank.addAccount(a2);
         bank.addAccount(a3);
 
+        bank.withdraw(a1 , 20000000);
+        bank.withdraw(a1, 2000);
+        bank.deposit(a2, 300);
+
         // Display all accounts
         bank.displayAllAccounts();
 
         // Delete an account by its number
-        bank.deleteAccount(1002);
+        bank.deleteAccount(a1);
 
         // Display all accounts again
         bank.displayAllAccounts();
 
         // Update an account by its number
-        bank.updateAccount(1003, "Chloe", 4500);
+        bank.updateAccount(1002, "Chloe", 4500);
 
         // Display all accounts again
         bank.displayAllAccounts();
