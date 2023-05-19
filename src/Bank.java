@@ -35,6 +35,7 @@ public class Bank {
     public void deposit(Account account, double amount) {
         if (amount > 0) {
             account.setBalance(account.getBalance() + amount);
+//            account.addHistory(new History("deposit", amount));
             System.out.println("Deposit successful. New balance: " + account.getBalance());
         } else {
             System.out.println("Invalid amount. Deposit failed.");
@@ -47,6 +48,16 @@ public class Bank {
             System.out.println("Withdraw successful. New balance: " + account.getBalance());
         } else {
             System.out.println("Invalid amount or insufficient funds. Withdrawal failed.");
+        }
+    }
+
+    public void transferMoney(Account sender, Account receiver, double amount) {
+        if (amount > 0 && amount <= sender.getBalance()) {
+            sender.setBalance(sender.getBalance() - amount);
+            receiver.setBalance(receiver.getBalance() + amount);
+            System.out.println("Transfer successful. New balance: " + sender.getBalance());
+        } else {
+            System.out.println("Invalid amount or insufficient funds. Transfer failed.");
         }
     }
 

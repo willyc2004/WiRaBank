@@ -9,9 +9,9 @@ public class Main {
 
 
         // Create some account objects
-        Account a1 = new Account(1001, "Alice", 5000);
-        Account a2 = new Account(1002, "Bob", 3000);
-        Account a3 = new Account(1003, "Charlie", 4000);
+        Account a1 = new Account(1001, "Alice", 5000, "sayajago");
+        Account a2 = new Account(1002, "Bob", 3000, "password");
+        Account a3 = new Account(1003, "Charlie", 4000, "sebentar");
 
         // Add some accounts to the bank
         bank.addAccount(a1);
