@@ -49,21 +49,6 @@ public class Account {
         this.balance = balance;
     }
 
-    public void addTransaction(History transaction) {
-        history.add(transaction);
-    }
-
-    public void displayTransaction() {
-        if (history.isEmpty()) {
-            System.out.println("No transactions found.");
-            return;
-        }
-
-        for (History transaction : history) {
-            System.out.println(transaction.getType() + ": " + transaction.getAmount() + " on " + transaction.getDate());
-        }
-    }
-
     public void display() {
         System.out.println("Account number: " + accountnumber);
         System.out.println("Account holder username: " + username);

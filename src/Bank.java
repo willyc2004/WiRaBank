@@ -35,7 +35,6 @@ public class Bank {
     public void deposit(Account account, double amount) {
         if (amount > 0) {
             account.setBalance(account.getBalance() + amount);
-//            account.addHistory(new History("deposit", amount));
             System.out.println("Deposit successful. New balance: " + account.getBalance());
         } else {
             System.out.println("Invalid amount. Deposit failed.");
