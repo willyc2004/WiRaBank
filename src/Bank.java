@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Bank {
     // Instance variable
@@ -18,11 +19,11 @@ public class Bank {
         System.out.println("Account removed successfully");
     }
 
-    public void updateAccount(int number, String newName, double newBalance) {
+    public void updateAccount(String number, String newName, double newBalance) {
         for (int i = 0; i < accounts.size(); i++) {
             Account current = accounts.get(i);
 
-            if (current.getAccountnumber() == number) {
+            if (current.getAccountnumber().equals(number)) {
                 current.setUsername(newName);
                 current.setBalance(newBalance);
                 System.out.println("Account updated successfully.");
@@ -35,7 +36,6 @@ public class Bank {
     public void deposit(Account account, double amount) {
         if (amount > 0) {
             account.setBalance(account.getBalance() + amount);
-//            account.addHistory(new History("deposit", amount));
             System.out.println("Deposit successful. New balance: " + account.getBalance());
         } else {
             System.out.println("Invalid amount. Deposit failed.");
@@ -73,6 +73,38 @@ public class Bank {
             System.out.println();
         }
 
+    }
+
+    public void displayAccountNumber() {
+        if (accounts.isEmpty()) {
+            System.out.println("No accounts found.");
+            return;
+        }
+
+        for (int i = 0; i < accounts.size(); i++) {
+            System.out.println((i+1) + ". " + accounts.get(i).getAccountnumber());
+        }
+    }
+
+    public String setAccountNumber() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+
+        // Generate random digits for the account number
+        for (int i = 0; i < 8; i++) {
+            int digit = random.nextInt(10);
+            sb.append(digit);
+        }
+
+        return sb.toString();
+    }
+
+    public int getAccountTotals(){
+        return this.accounts.size();
+    }
+
+    public LinkedList listAccount(){
+        return accounts;
     }
 
 }

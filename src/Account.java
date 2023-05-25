@@ -2,13 +2,12 @@ import java.util.LinkedList;
 
 public class Account {
 
-    private int accountnumber;
-    private String username, password;
+    private String username, password, accountnumber;
     private double balance;
 
     private LinkedList<History> history;
 
-    public Account(int accountnumber, String username, double balance, String password) {
+    public Account(String accountnumber, String username, double balance, String password) {
         this.accountnumber = accountnumber;
         this.username = username;
         this.balance = balance;
@@ -17,7 +16,7 @@ public class Account {
     }
 
     // Getter methods
-    public int getAccountnumber() {
+    public String getAccountnumber() {
         return accountnumber;
     }
 
@@ -37,7 +36,7 @@ public class Account {
         this.password = password;
     }
 
-    public void setAccountnumber(int accountnumber) {
+    public void setAccountnumber(String accountnumber) {
         this.accountnumber = accountnumber;
     }
 
@@ -47,21 +46,6 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public void addTransaction(History transaction) {
-        history.add(transaction);
-    }
-
-    public void displayTransaction() {
-        if (history.isEmpty()) {
-            System.out.println("No transactions found.");
-            return;
-        }
-
-        for (History transaction : history) {
-            System.out.println(transaction.getType() + ": " + transaction.getAmount() + " on " + transaction.getDate());
-        }
     }
 
     public void display() {
