@@ -1,23 +1,23 @@
 import java.sql.*;
 public class Connector {
-    public void addData(int id, String usernameValue, String passwordValue){
+    public void addAccount(String accountNumber, String passwordValue, String usernameValue, int balance){
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wirabank", "root", "");
-            System.out.println("Koneksi ke database berhasil!");
 
             // Query SQL untuk menambahkan data
-            String query = "INSERT INTO users (user_id, name, password) VALUES (?, ?, ?)";
+            String query = "INSERT INTO account (account_number, password, user_name, balance) VALUES (?, ?, ?, ?)";
 
             // Membuat prepared statement
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
-            statement.setString(2, usernameValue);
-            statement.setString(3, passwordValue);
+            statement.setString(1, accountNumber);
+            statement.setString(2, passwordValue);
+            statement.setString(3, usernameValue);
+            statement.setInt(4, balance);
 
             // Menjalankan pernyataan SQL
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Data berhasil ditambahkan ke tabel Users.");
+                System.out.println("Data berhasil ditambahkan ke tabel Account.");
             }
 
             // Menutup koneksi
@@ -47,6 +47,33 @@ public class Connector {
                 bank.addAccount(account);
             }
 
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void deleteAccount(String accountNumber) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wirabank", "root", "");
+            System.out.println("Koneksi ke database berhasil!");
+
+            // Query SQL untuk menghapus data berdasarkan nomor akun
+            String query = "DELETE FROM account WHERE account_number = ?";
+
+            // Membuat prepared statement
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1, accountNumber);
+
+            // Menjalankan pernyataan SQL
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Akun dengan nomor " + accountNumber + " berhasil dihapus.");
+            } else {
+                System.out.println("Akun dengan nomor " + accountNumber + " tidak ditemukan.");
+            }
+
+            // Menutup koneksi
             statement.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
