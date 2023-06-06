@@ -3,11 +3,11 @@ import java.util.LinkedList;
 public class Account {
 
     private String username, password, accountnumber;
-    private double balance;
+    private int balance;
 
     private LinkedList<History> history;
 
-    public Account(String accountnumber, String username, double balance, String password) {
+    public Account(String accountnumber, String username, int balance, String password) {
         this.accountnumber = accountnumber;
         this.username = username;
         this.balance = balance;
@@ -28,7 +28,7 @@ public class Account {
         return username;
     }
 
-    public double getBalance() {
+    public int getBalance() {
         return balance;
     }
 
@@ -44,7 +44,7 @@ public class Account {
         this.username = username;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 

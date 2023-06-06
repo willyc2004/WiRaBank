@@ -9,17 +9,32 @@ public class Bank {
         accounts = new LinkedList<Account>();
     }
 
+    Connector conn = new Connector();
     public void addAccount(Account account) {
         accounts.add(account);
         System.out.println("Account added successfully.");
     }
 
+    public void addDB(Account account){
+        String accountNumber = account.getAccountnumber();
+        String password = account.getPassword();
+        String username = account.getUsername();
+        int balance = account.getBalance();
+
+        conn.addAccount(accountNumber, password, username, balance);
+    }
+
     public void deleteAccount(Account account){
+        // Delete account yang ada di Database
+        String accountNumber = account.getAccountnumber();
+        conn.deleteAccount(accountNumber);
+
+        // Remove dari LinkedList
         accounts.remove(account);
         System.out.println("Account removed successfully");
     }
 
-    public void updateAccount(String number, String newName, double newBalance) {
+    public void updateAccount(String number, String newName, int newBalance) {
         for (int i = 0; i < accounts.size(); i++) {
             Account current = accounts.get(i);
 
@@ -33,7 +48,7 @@ public class Bank {
         System.out.println("Account not found. Update failed.");
     }
 
-    public void deposit(Account account, double amount) {
+    public void deposit(Account account, int amount) {
         if (amount > 0) {
             account.setBalance(account.getBalance() + amount);
             System.out.println("Deposit successful. New balance: " + account.getBalance());
@@ -42,7 +57,7 @@ public class Bank {
         }
     }
 
-    public void withdraw(Account account, double amount) {
+    public void withdraw(Account account, int amount) {
         if (amount > 0 && amount <= account.getBalance()) {
             account.setBalance(account.getBalance() - amount);
             System.out.println("Withdraw successful. New balance: " + account.getBalance());
@@ -51,7 +66,7 @@ public class Bank {
         }
     }
 
-    public void transferMoney(Account sender, Account receiver, double amount) {
+    public void transferMoney(Account sender, Account receiver, int amount) {
         if (amount > 0 && amount <= sender.getBalance()) {
             sender.setBalance(sender.getBalance() - amount);
             receiver.setBalance(receiver.getBalance() + amount);
