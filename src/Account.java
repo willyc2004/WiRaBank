@@ -1,58 +1,73 @@
-import java.util.LinkedList;
-
 public class Account {
-
-    private String username, password, accountnumber;
     private int balance;
+    private String accountNumber, pin;
 
-    private LinkedList<History> history;
-
-    public Account(String accountnumber, String username, int balance, String password) {
-        this.accountnumber = accountnumber;
-        this.username = username;
+    public Account(String accountNumber, String pin, int balance) {
+        this.accountNumber = accountNumber;
+        this.pin = pin;
         this.balance = balance;
-        this.password = password;
-        history = new LinkedList<>();
-    }
-
-    // Getter methods
-    public String getAccountnumber() {
-        return accountnumber;
-    }
-
-    public String getPassword(){
-        return password;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public int getBalance() {
         return balance;
     }
 
-    public void setPassword(String password){
-        this.password = password;
-    }
-
-    public void setAccountnumber(String accountnumber) {
-        this.accountnumber = accountnumber;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public void setBalance(int balance) {
         this.balance = balance;
     }
 
-    public void display() {
-        System.out.println("Account number: " + accountnumber);
-        System.out.println("Account holder username: " + username);
-        System.out.println("Account balance: " + balance);
-        System.out.println("Account password: " + password);
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public void display() {
+        System.out.println("Account number: " + accountNumber);
+        System.out.println("Account pin: " + pin);
+        System.out.println("Account balance: " + balance);
+    }
+
+    public void displayBalance() {
+        System.out.println("Account number: " + accountNumber);
+        System.out.println("Account balance: " + balance);
+    }
+
+    public void deposit(int amount) {
+        if (amount > 0) {
+            balance = balance + amount;
+            System.out.println("Deposit successful. New balance: " + balance);
+        } else {
+            System.out.println("Invalid amount. Deposit failed.");
+        }
+    }
+
+    public void withdraw(int amount) {
+        if (amount > 0 && amount <= balance) {
+            balance = balance - amount;
+            System.out.println("Withdraw successful. New balance: " + balance);
+        } else {
+            System.out.println("Invalid amount or insufficient funds. Withdrawal failed.");
+        }
+    }
+
+    public void transfer(Account receiver, int amount) {
+        if (amount > 0 && amount <= balance) {
+            balance = balance - amount;
+            receiver.setBalance(receiver.getBalance() + amount);
+            System.out.println("Transfer successful. New balance: " + balance);
+        } else {
+            System.out.println("Invalid amount or insufficient funds. Transfer failed.");
+        }
+    }
 }
