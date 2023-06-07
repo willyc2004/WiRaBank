@@ -4,16 +4,16 @@ import java.util.Random;
 public class App {
     Scanner inp = new Scanner(System.in);
     Account curr;
-    User user;
+    Bank bank = new Bank();
 
 
-    public void mainMenu(){
+    public void mainMenu() {
         System.out.println("Welcome to Wirabank!");
         curr.displayBalance();
         int landing = 999;
         try {
             Scanner s = new Scanner(System.in);
-            System.out.println("1. Withdraw\n2. Deposit\n3. Transfer\n4. Delete Account\n5. Account Information\n6. Transaction History\n0. Back");
+            System.out.println("1. Withdraw\n2. Deposit\n3. Transfer\n4. Delete Account\n5. Change Pin\n6. Account Information\n7. Transaction History\n0. Back");
             System.out.print("Choose: ");
             landing = s.nextInt();
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public class App {
                 int amount = 0;
                 try {
                     Scanner s = new Scanner(System.in);
-                    System.out.println("Enter the amount you want to withdraw");
+                    System.out.print("Enter the amount you want to withdraw : ");
                     amount = s.nextInt();
                 } catch (Exception e) {
 
@@ -38,7 +38,7 @@ public class App {
                 amount = 0;
                 try {
                     Scanner s = new Scanner(System.in);
-                    System.out.println("Enter the amount you want to deposit");
+                    System.out.print("Enter the amount you want to deposit : ");
                     amount = s.nextInt();
                 } catch (Exception e) {
 
@@ -48,18 +48,18 @@ public class App {
                 mainMenu();
                 break;
             case 3:
-                int jumlahAkun = user.getAccountTotals();
+                int jumlahAkun = bank.getAccountTotals();
                 System.out.println("List of account number:");
-                user.displayAccountNumber();
+                bank.displayAccountNumber();
 
-                if (user.getAccountTotals() <= 1) {
+                if (bank.getAccountTotals() <= 1) {
                     System.out.println("You only Have 1 account, can't transfer");
                     mainMenu();
                 }
                 int menuLogin = 0;
                 try {
                     Scanner s = new Scanner(System.in);
-                    System.out.print("Transfer to which Account:");
+                    System.out.print("Transfer to which Account : ");
                     menuLogin = s.nextInt();
                 } catch (Exception e) {
 
@@ -69,8 +69,8 @@ public class App {
                     mainMenu();
                 } else {
                     Account receiver;
-                    receiver = (Account) user.getAccounts().get(menuLogin - 1);
-                    if(curr == receiver) {
+                    receiver = (Account) bank.getAccounts().get(menuLogin - 1);
+                    if (curr == receiver) {
                         System.out.println("You can't transfer to yourself!");
                         mainMenu();
                     }
@@ -94,20 +94,24 @@ public class App {
                 System.out.println("If Account is Deleted, all details will be gone");
                 System.out.print("Y/N : ");
                 String cek = inp.next() + inp.nextLine();
-                if (cek.equalsIgnoreCase("y")){
-                    user.deleteAccount(curr);
+                if (cek.equalsIgnoreCase("y")) {
+                    bank.deleteAccount(curr);
                     loginAccount();
                 } else {
                     mainMenu();
                 }
                 break;
             case 5:
+                changePin();
+                mainMenu();
+                break;
+            case 6:
                 System.out.println("This is your account information!");
                 curr.display();
                 System.out.println();
                 mainMenu();
                 break;
-            case 6:
+            case 7:
                 curr.displayTransactionHistory();
                 mainMenu();
                 break;
@@ -145,16 +149,16 @@ public class App {
         }
 
         Account account = new Account(accountNumber, pin, 0);
-        user.addAccount(account);
+        bank.addAccount(account);
         loginAccount();
     }
 
     public void menuLogin() {
-        int jumlahAkun = user.getAccountTotals();
+        int jumlahAkun = bank.getAccountTotals();
         System.out.println("List of account number:");
-        user.displayAccountNumber();
+        bank.displayAccountNumber();
 
-        if (user.getAccountTotals() == 0) {
+        if (bank.getAccountTotals() == 0) {
             System.out.println("You don't have any account, please create account!");
             loginAccount();
         }
@@ -162,7 +166,7 @@ public class App {
         int menuLogin = 0;
         try {
             Scanner s = new Scanner(System.in);
-            System.out.print("Choose which account to log in:");
+            System.out.print("Choose which account to log in : ");
             menuLogin = s.nextInt();
         } catch (Exception e) {
 
@@ -172,7 +176,7 @@ public class App {
             System.out.println("Invalid Input!");
             menuLogin();
         } else {
-            curr = (Account) user.getAccounts().get(menuLogin - 1);
+            curr = (Account) bank.getAccounts().get(menuLogin - 1);
             String pass = curr.getPin();
 
             System.out.print("Pin: ");
@@ -198,12 +202,12 @@ public class App {
                         " ╚══╝╚══╝ ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝\n");
     }
 
-    public void loginAccount(){
+    public void loginAccount() {
         int landing = 999;
         try {
             Scanner s = new Scanner(System.in);
-            System.out.println("Welcome to Wirabank " + user.getUsername() + "!");
-            System.out.println("1. Login Account\n2. Register Account\n3. View All Accounts\n4. Change Pin\n0. Back");
+            System.out.println("Welcome to Wirabank!");
+            System.out.println("1. Login Account\n2. Register Account\n3. View All Accounts");
             System.out.print("Choose: ");
             landing = s.nextInt();
         } catch (Exception e) {
@@ -217,14 +221,8 @@ public class App {
                 menuRegis();
                 break;
             case 3:
-                user.displayAllAccount();
+                bank.displayAllAccount();
                 loginAccount();
-                break;
-            case 4:
-                ChangePin();
-                break;
-            case 0:
-                run();
                 break;
             default:
                 System.out.println("Invalid Input!");
@@ -233,137 +231,16 @@ public class App {
         }
     }
 
-    public void Forgot(){
+    public void changePin() {
         Logo();
-        System.out.println("Your old username : " + user.getUsername());
-        System.out.print("Change your username : ");
-        String username = inp.next() + inp.nextLine();
-        user.setUsername(username);
-        System.out.println("Your old password : " + user.getPassword());
-        System.out.print("Change your password : ");
-        String pwd = inp.next() + inp.nextLine();
-        user.setPassword(pwd);
-        System.out.println("Account details successfully changed, please Login!");
-        run();
-    }
-
-    public void ChangePin(){
-        Logo();
-        int jumlahAkun = user.getAccountTotals();
-        System.out.println("List of account number:");
-        user.displayAccountNumber();
-
-        if (user.getAccountTotals() == 0) {
-            System.out.println("You don't have any account, please create account!");
-            loginAccount();
+        System.out.println("Your Old Pin : " + curr.getPin());
+        System.out.print("Your New Pin : ");
+        String pin = inp.next() + inp.nextLine();
+        while (!pin.matches("\\d+")) {
+            System.out.print("Invalid input! PIN must contain only digits. Please try again: ");
+            pin = inp.next();
         }
-
-        int menuLogin = 0;
-        try {
-            Scanner s = new Scanner(System.in);
-            System.out.print("Choose which account to Change Pin:");
-            menuLogin = s.nextInt();
-        } catch (Exception e) {
-
-        }
-
-        if (menuLogin - 1 > jumlahAkun || menuLogin < 1) {
-            System.out.println("Invalid Input!");
-            loginAccount();
-        } else {
-            curr = (Account) user.getAccounts().get(menuLogin - 1);
-            System.out.println("Your Old Pin: " + curr.getPin());
-            System.out.print("Your New Pin: ");
-            String pin = inp.next() + inp.nextLine();
-            while (!pin.matches("\\d+")) {
-                System.out.print("Invalid input! PIN must contain only digits. Please try again: ");
-                pin = inp.next();
-            }
-            curr.setPin(pin);
-            System.out.println("Pin Successfully Changed!");
-            loginAccount();
-        }
-
-    }
-
-    public void Login() {
-        if (user == null) {
-            System.out.println("Please Register First!");
-            run();
-        } else {
-            Logo();
-            System.out.println("Welcome to Wirabank " + user.getUsername() + "!");
-            System.out.print("Please input your password : ");
-            String password = inp.next() + inp.nextLine();
-            if (user.login(password)) {
-                System.out.println("Login Successful");
-                loginAccount();
-            } else {
-                System.out.println("Incorrect Password!!");
-                run();
-            }
-
-        }
-    }
-
-    public void Register() {
-        Logo();
-        System.out.print("Input your username : ");
-        String username = inp.next() + inp.nextLine();
-        System.out.print("Input your password : ");
-        String pwd = inp.next() + inp.nextLine();
-        user = new User(username, pwd);
-        System.out.println("User successfully created, please Login!");
-        run();
-    }
-
-    public void run() {
-        Logo();
-        if (user == null) {
-            int landing = 0;
-            try {
-                Scanner s = new Scanner(System.in);
-                System.out.println("Welcome To Wirabank!\n1. Login\n2. Register");
-                System.out.print("Choose: ");
-                landing = s.nextInt();
-            } catch (Exception e) {
-
-            }
-
-            switch (landing) {
-                case 1:
-                    Login();
-                    break;
-                case 2:
-                    Register();
-                    break;
-                default:
-                    System.out.println("Invalid Input!");
-                    run();
-                    break;
-            }
-        } else {
-            int landing = 0;
-            try {
-                Scanner s = new Scanner(System.in);
-                System.out.println("Welcome To Wirabank!\n1. Login\n2. Forgot Username/Password?");
-                System.out.print("Choose: ");
-                landing = s.nextInt();
-            } catch (Exception e) {
-
-            }
-            switch (landing) {
-                case 1:
-                    Login();
-                    break;
-                case 2:
-                    Forgot();
-                    break;
-                default:
-                    System.out.println("Invalid Input!");
-                    run();
-                    break;
-            }
-        }
+        curr.setPin(pin);
+        System.out.println("Pin Successfully Changed!");
     }
 }
