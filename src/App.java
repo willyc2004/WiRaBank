@@ -15,7 +15,9 @@ public class App {
     }
 
     public void mainMenu() {
-
+        for (int i = 0; i < bank.getAccountTotals(); i++) {
+            conn.setBalanceAcc(bank.getAccounts().get(i).getAccountNumber(), bank.getAccounts().get(i).getBalance());
+        }
         System.out.println("Welcome to Wirabank!");
         curr.displayBalance();
         String currAccNum = curr.getAccountNumber();
