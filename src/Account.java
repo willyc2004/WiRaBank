@@ -93,8 +93,6 @@ public class Account {
         }
     }
 
-
-
     public void removeAccountHistory() {
         transactionHistory.clear();
     }

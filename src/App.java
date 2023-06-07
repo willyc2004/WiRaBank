@@ -5,7 +5,14 @@ public class App {
     Scanner inp = new Scanner(System.in);
     Account curr;
     Bank bank = new Bank();
+    Connector conn = new Connector();
 
+    public void run(){
+        // Mengambil semua account dari database
+        conn.getAccount(bank);
+        // Masuk ke login page
+        loginAccount();
+    }
 
     public void mainMenu() {
         System.out.println("Welcome to Wirabank!");
@@ -13,7 +20,14 @@ public class App {
         int landing = 999;
         try {
             Scanner s = new Scanner(System.in);
-            System.out.println("1. Withdraw\n2. Deposit\n3. Transfer\n4. Delete Account\n5. Change Pin\n6. Account Information\n7. Transaction History\n0. Back");
+            System.out.println("1. Withdraw\n" +
+                    "2. Deposit\n" +
+                    "3. Transfer\n" +
+                    "4. Delete Account\n" +
+                    "5. Change Pin\n" +
+                    "6. Account Information\n" +
+                    "7. Transaction History\n" +
+                    "0. Back");
             System.out.print("Choose: ");
             landing = s.nextInt();
         } catch (Exception e) {
@@ -64,7 +78,7 @@ public class App {
                 } catch (Exception e) {
 
                 }
-                if (menuLogin - 1 > jumlahAkun || menuLogin < 1) {
+                if (menuLogin - 1 >= jumlahAkun || menuLogin < 1) {
                     System.out.println("Invalid Input!");
                     mainMenu();
                 } else {
@@ -95,6 +109,8 @@ public class App {
                 System.out.print("Y/N : ");
                 String cek = inp.next() + inp.nextLine();
                 if (cek.equalsIgnoreCase("y")) {
+                    // Delete account di database
+                    conn.deleteAccount(curr.getAccountNumber());
                     bank.deleteAccount(curr);
                     loginAccount();
                 } else {
@@ -150,6 +166,8 @@ public class App {
 
         Account account = new Account(accountNumber, pin, 0);
         bank.addAccount(account);
+        // Add Account to database
+        conn.addAccount(accountNumber, pin, 0);
         loginAccount();
     }
 
@@ -172,7 +190,7 @@ public class App {
 
         }
 
-        if (menuLogin - 1 > jumlahAkun || menuLogin < 1) {
+        if (menuLogin - 1 >= jumlahAkun || menuLogin < 1) {
             System.out.println("Invalid Input!");
             menuLogin();
         } else {
@@ -203,6 +221,7 @@ public class App {
     }
 
     public void loginAccount() {
+        Logo();
         int landing = 999;
         try {
             Scanner s = new Scanner(System.in);
@@ -242,5 +261,9 @@ public class App {
         }
         curr.setPin(pin);
         System.out.println("Pin Successfully Changed!");
+
+        String accountNumber = curr.getAccountNumber();
+        // Change Pin in Database
+        conn.changePin(accountNumber, pin);
     }
 }
