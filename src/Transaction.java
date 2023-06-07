@@ -7,4 +7,16 @@ abstract class Transaction {
     }
 
     public abstract void execute(Account account);
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public String toString() {
+        return "Transaction: " + this.amount;
+    }
 }

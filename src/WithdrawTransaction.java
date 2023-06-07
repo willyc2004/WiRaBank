@@ -12,4 +12,8 @@ class WithdrawTransaction extends Transaction {
             System.out.println("Insufficient funds. Withdrawal failed.");
         }
     }
+    @Override
+    public String toString() {
+        return "Withdrawal: " + this.amount;
+    }
 }

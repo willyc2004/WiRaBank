@@ -17,7 +17,8 @@ class TransferTransaction extends Transaction {
         }
     }
 
-    public Account getReceiver() {
-        return receiver;
+    @Override
+    public String toString() {
+        return "Transfer: " + this.amount + " to account: " + this.receiver.getAccountNumber();
     }
 }

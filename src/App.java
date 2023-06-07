@@ -111,7 +111,7 @@ public class App {
                 curr.displayTransactionHistory();
                 mainMenu();
                 break;
-            case 7:
+            case 0:
                 loginAccount();
                 break;
             default:
@@ -144,9 +144,7 @@ public class App {
             pin = inp.next();
         }
 
-        System.out.print("Please deposit some money into your account: ");
-        int balance = inp.nextInt();
-        Account account = new Account(accountNumber, pin, balance);
+        Account account = new Account(accountNumber, pin, 0);
         user.addAccount(account);
         loginAccount();
     }
@@ -225,7 +223,7 @@ public class App {
             case 4:
                 ChangePin();
                 break;
-            case 5:
+            case 0:
                 run();
                 break;
             default:

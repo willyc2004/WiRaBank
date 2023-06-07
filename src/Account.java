@@ -78,21 +78,22 @@ public class Account {
     }
 
     public void displayTransactionHistory() {
-        System.out.println("Transaction History:");
+        Stack<Transaction> temp = new Stack<>();
+        System.out.println("Transaction history: ");
         int number = 1;
-        for (Transaction transaction : transactionHistory) {
-            if (transaction instanceof DepositTransaction) {
-                System.out.println(number + ". Deposit: +" + transaction.amount);
-            } else if (transaction instanceof WithdrawTransaction) {
-                System.out.println(number + ". Withdrawal: -" + transaction.amount);
-            } else if (transaction instanceof TransferTransaction) {
-                TransferTransaction transferTransaction = (TransferTransaction) transaction;
-                Account receiver = transferTransaction.getReceiver();
-                System.out.println(number + ". Transfer: -" + transaction.amount + " to Account Number " + receiver.getAccountNumber());
-            }
+        while (!transactionHistory.isEmpty()) {
+            System.out.print(number+". ");
+            Transaction transaction = transactionHistory.pop();
+            System.out.println(transaction);
+            temp.push(transaction);
             number++;
         }
+        while (!temp.isEmpty()) {
+            transactionHistory.push(temp.pop());
+        }
     }
+
+
 
     public void removeAccountHistory() {
         transactionHistory.clear();
