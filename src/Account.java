@@ -1,11 +1,15 @@
+import java.util.Stack;
+
 public class Account {
     private int balance;
     private String accountNumber, pin;
+    private Stack<Transaction> transactionHistory;
 
     public Account(String accountNumber, String pin, int balance) {
         this.accountNumber = accountNumber;
         this.pin = pin;
         this.balance = balance;
+        this.transactionHistory = new Stack<>();
     }
 
     public int getBalance() {
@@ -45,8 +49,9 @@ public class Account {
 
     public void deposit(int amount) {
         if (amount > 0) {
-            balance = balance + amount;
-            System.out.println("Deposit successful. New balance: " + balance);
+            Transaction depositTransaction = new DepositTransaction(amount);
+            depositTransaction.execute(this);
+            transactionHistory.push(depositTransaction);
         } else {
             System.out.println("Invalid amount. Deposit failed.");
         }
@@ -54,20 +59,42 @@ public class Account {
 
     public void withdraw(int amount) {
         if (amount > 0 && amount <= balance) {
-            balance = balance - amount;
-            System.out.println("Withdraw successful. New balance: " + balance);
+            Transaction withdrawalTransaction = new WithdrawTransaction(amount);
+            withdrawalTransaction.execute(this);
+            transactionHistory.push(withdrawalTransaction);
         } else {
-            System.out.println("Invalid amount or insufficient funds. Withdrawal failed.");
+            System.out.println("Invalid amount. Withdrawal failed.");
         }
     }
 
     public void transfer(Account receiver, int amount) {
         if (amount > 0 && amount <= balance) {
-            balance = balance - amount;
-            receiver.setBalance(receiver.getBalance() + amount);
-            System.out.println("Transfer successful. New balance: " + balance);
+            Transaction transferTransaction = new TransferTransaction(receiver, amount);
+            transferTransaction.execute(this);
+            transactionHistory.push(transferTransaction);
         } else {
-            System.out.println("Invalid amount or insufficient funds. Transfer failed.");
+            System.out.println("Invalid amount. Transfer failed.");
         }
+    }
+
+    public void displayTransactionHistory() {
+        System.out.println("Transaction History:");
+        int number = 1;
+        for (Transaction transaction : transactionHistory) {
+            if (transaction instanceof DepositTransaction) {
+                System.out.println(number + ". Deposit: +" + transaction.amount);
+            } else if (transaction instanceof WithdrawTransaction) {
+                System.out.println(number + ". Withdrawal: -" + transaction.amount);
+            } else if (transaction instanceof TransferTransaction) {
+                TransferTransaction transferTransaction = (TransferTransaction) transaction;
+                Account receiver = transferTransaction.getReceiver();
+                System.out.println(number + ". Transfer: -" + transaction.amount + " to Account Number " + receiver.getAccountNumber());
+            }
+            number++;
+        }
+    }
+
+    public void removeAccountHistory() {
+        transactionHistory.clear();
     }
 }

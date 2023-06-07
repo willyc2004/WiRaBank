@@ -6,13 +6,14 @@ public class App {
     Account curr;
     User user;
 
+
     public void mainMenu(){
         System.out.println("Welcome to Wirabank!");
         curr.displayBalance();
-        int landing = 0;
+        int landing = 999;
         try {
             Scanner s = new Scanner(System.in);
-            System.out.println("1. Withdraw\n2. Deposit\n3. Transfer\n4. Account Information\n5. Transaction History\n6. Back");
+            System.out.println("1. Withdraw\n2. Deposit\n3. Transfer\n4. Delete Account\n5. Account Information\n6. Transaction History\n0. Back");
             System.out.print("Choose: ");
             landing = s.nextInt();
         } catch (Exception e) {
@@ -86,17 +87,31 @@ public class App {
                 }
                 mainMenu();
                 break;
+
             case 4:
+                System.out.println("Are you sure you want to delete your account?");
+                System.out.println("Your Balance is " + curr.getBalance());
+                System.out.println("If Account is Deleted, all details will be gone");
+                System.out.print("Y/N : ");
+                String cek = inp.next() + inp.nextLine();
+                if (cek.equalsIgnoreCase("y")){
+                    user.deleteAccount(curr);
+                    loginAccount();
+                } else {
+                    mainMenu();
+                }
+                break;
+            case 5:
                 System.out.println("This is your account information!");
                 curr.display();
                 System.out.println();
                 mainMenu();
                 break;
-            case 5:
-//              transactionHistory();
+            case 6:
+                curr.displayTransactionHistory();
                 mainMenu();
                 break;
-            case 6:
+            case 7:
                 loginAccount();
                 break;
             default:
@@ -186,11 +201,11 @@ public class App {
     }
 
     public void loginAccount(){
-        int landing = 0;
+        int landing = 999;
         try {
             Scanner s = new Scanner(System.in);
             System.out.println("Welcome to Wirabank " + user.getUsername() + "!");
-            System.out.println("1. Login Account\n2. Register Account\n3. View All Accounts\n4. Change Pin\n5. Back");
+            System.out.println("1. Login Account\n2. Register Account\n3. View All Accounts\n4. Change Pin\n0. Back");
             System.out.print("Choose: ");
             landing = s.nextInt();
         } catch (Exception e) {

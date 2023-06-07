@@ -65,4 +65,14 @@ public class User {
             System.out.println((i+1) + ". " + accounts.get(i).getAccountNumber());
         }
     }
+
+    public void deleteAccount(Account account) {
+        if (accounts.contains(account)) {
+            account.removeAccountHistory();
+            accounts.remove(account);
+            System.out.println("Account has been successfully deleted.");
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
 }
