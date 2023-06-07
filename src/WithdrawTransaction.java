@@ -1,6 +1,6 @@
 class WithdrawTransaction extends Transaction {
-    public WithdrawTransaction(int amount) {
-        super(amount);
+    public WithdrawTransaction(int amount, String accountNumber) {
+        super(amount, accountNumber);
     }
 
     @Override

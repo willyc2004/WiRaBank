@@ -1,8 +1,8 @@
 class TransferTransaction extends Transaction {
     private Account receiver;
 
-    public TransferTransaction(Account receiver, int amount) {
-        super(amount);
+    public TransferTransaction(Account receiver, int amount, String accountNumber) {
+        super(amount, accountNumber);
         this.receiver = receiver;
     }
 

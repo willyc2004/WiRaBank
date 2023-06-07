@@ -45,7 +45,6 @@ public class Bank {
 
     public void deleteAccount(Account account) {
         if (accounts.contains(account)) {
-            account.removeAccountHistory();
             accounts.remove(account);
             System.out.println("Account has been successfully deleted.");
         } else {

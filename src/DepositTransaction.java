@@ -1,6 +1,6 @@
 class DepositTransaction extends Transaction {
-    public DepositTransaction(int amount) {
-        super(amount);
+    public DepositTransaction(int amount, String accountNumber) {
+        super(amount, accountNumber);
     }
 
     @Override

@@ -15,8 +15,10 @@ public class App {
     }
 
     public void mainMenu() {
+
         System.out.println("Welcome to Wirabank!");
         curr.displayBalance();
+        String currAccNum = curr.getAccountNumber();
         int landing = 999;
         try {
             Scanner s = new Scanner(System.in);
@@ -34,7 +36,7 @@ public class App {
 
         }
         switch (landing) {
-            case 1:
+            case 1: // Withdraw
                 curr.displayBalance();
 
                 int amount = 0;
@@ -45,10 +47,10 @@ public class App {
                 } catch (Exception e) {
 
                 }
-                curr.withdraw(amount);
+                curr.withdraw(amount, currAccNum);
                 mainMenu();
                 break;
-            case 2:
+            case 2: // Deposit
                 amount = 0;
                 try {
                     Scanner s = new Scanner(System.in);
@@ -58,10 +60,10 @@ public class App {
 
                 }
 
-                curr.deposit(amount);
+                curr.deposit(amount, currAccNum);
                 mainMenu();
                 break;
-            case 3:
+            case 3: // Transfer
                 int jumlahAkun = bank.getAccountTotals();
                 System.out.println("List of account number:");
                 bank.displayAccountNumber();
@@ -101,8 +103,7 @@ public class App {
                 }
                 mainMenu();
                 break;
-
-            case 4:
+            case 4: // Delete current Account
                 System.out.println("Are you sure you want to delete your account?");
                 System.out.println("Your Balance is " + curr.getBalance());
                 System.out.println("If Account is Deleted, all details will be gone");
@@ -110,31 +111,50 @@ public class App {
                 String cek = inp.next() + inp.nextLine();
                 if (cek.equalsIgnoreCase("y")) {
                     // Delete account di database
-                    conn.deleteAccount(curr.getAccountNumber());
+                    conn.deleteAccount(currAccNum);
                     bank.deleteAccount(curr);
                     loginAccount();
                 } else {
                     mainMenu();
                 }
                 break;
-            case 5:
+            case 5: // Change Pin
                 changePin();
                 mainMenu();
                 break;
-            case 6:
+            case 6: // Account Info
                 System.out.println("This is your account information!");
                 curr.display();
                 System.out.println();
                 mainMenu();
                 break;
-            case 7:
-                curr.displayTransactionHistory();
+            case 7: // History
+                System.out.println("What type of transaction history do you want to see? \n" +
+                        "1. Deposit \n" +
+                        "2. Withdraw \n" +
+                        "3. Transfer \n" +
+                        "0. Back");
+                System.out.print("Your choice: ");
+                int history = inp.nextInt();
+                switch (history){
+                    case 1:
+                        curr.showHistoryDepo();
+                        break;
+                    case 2:
+                        curr.showHistoryWithdraw();
+                        break;
+                    case 3:
+                        curr.showHistoryTransfer();
+                        break;
+                    default:
+                        break;
+                }
                 mainMenu();
                 break;
-            case 0:
+            case 0: // Back
                 loginAccount();
                 break;
-            default:
+            default: // error handling
                 System.out.println("Invalid Input!");
                 mainMenu();
                 break;
