@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class App {
+
+    //Untuk APP flow kita berdua yg buat
     Scanner inp = new Scanner(System.in);
     Account curr;
     Bank bank = new Bank();
@@ -15,6 +17,7 @@ public class App {
     }
 
     public void mainMenu() {
+        //ini buat update balance dari semua user.
         for (int i = 0; i < bank.getAccountTotals(); i++) {
             conn.setBalanceAcc(bank.getAccounts().get(i).getAccountNumber(), bank.getAccounts().get(i).getBalance());
         }
@@ -96,7 +99,7 @@ public class App {
                     amount = 0;
                     try {
                         Scanner s = new Scanner(System.in);
-                        System.out.println("Enter the amount you want to deposit to " + curr.getAccountNumber());
+                        System.out.print("Enter the amount you want to deposit to " + curr.getAccountNumber() +": ");
                         amount = s.nextInt();
                     } catch (Exception e) {
 
@@ -243,7 +246,10 @@ public class App {
     }
 
     public void loginAccount() {
+        //ngeprint logo wirabank.
         Logo();
+        //suru user login/register account, account nanti masuk ke Database
+        //account number di random 8 digit
         int landing = 999;
         try {
             Scanner s = new Scanner(System.in);

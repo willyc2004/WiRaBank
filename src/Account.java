@@ -6,12 +6,16 @@ public class Account {
     private Stack<Transaction> transactionHistory;
     Connector con = new Connector();
 
+    //account punya attributes berikut, ada attributes transaction history STACK, 1 user bisa banyak transaction history
+
     public Account(String accountNumber, String pin, int balance) {
         this.accountNumber = accountNumber;
         this.pin = pin;
         this.balance = balance;
         this.transactionHistory = new Stack<>();
     }
+
+    //getter setter
 
     public int getBalance() {
         return balance;
@@ -55,6 +59,9 @@ public class Account {
         System.out.println("Account number: " + accountNumber);
         System.out.println("Account balance: " + balance);
     }
+
+    //untuk logic deposit, withdraw, transfer antar akun willy yg buat
+    //untuk logic masukkin ke MySQL, sama tampilin menggunakan STACK radhit yang buat.
 
     public void deposit(int amount, String accountNumber) {
         if (amount > 0) {
