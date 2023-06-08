@@ -1,5 +1,7 @@
 
 abstract class Transaction {
+
+    //ini parent class dari DepositTransaction, WithdrawTransaction, TransferTransaction
     protected int amount;
     protected String accountNumber;
 

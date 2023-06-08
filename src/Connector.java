@@ -2,6 +2,8 @@ import java.sql.*;
 import java.util.Stack;
 
 public class Connector {
+
+    //ini radhit yg buat
     public void getAccount(Bank bank) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wirabank", "root", "");
@@ -160,12 +162,8 @@ public class Connector {
             statement.setString(2, accountNumber);
 
             // Menjalankan pernyataan SQL
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Deposit Successful!");
-            } else {
-                System.out.println("Failed to Deposit!");
-            }
+            statement.executeUpdate();
+
             // Menutup koneksi
             statement.close();
         } catch (SQLException e) {
@@ -210,12 +208,8 @@ public class Connector {
             statement.setString(2, accountNumber);
 
             // Menjalankan pernyataan SQL
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Withdraw Successful!");
-            } else {
-                System.out.println("Failed to Withdraw!");
-            }
+            statement.executeUpdate();
+
             statement.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -263,12 +257,8 @@ public class Connector {
             statement.setString(3, receiver);
 
             // Menjalankan pernyataan SQL
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Transfer Successful!");
-            } else {
-                System.out.println("Failed to Transfer!");
-            }
+            statement.executeUpdate();
+
             statement.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());

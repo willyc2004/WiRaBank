@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 
 public class Bank {
+
+    //bank ini gunanya untuk menyimpan LinkedList dari account, sama ada method2 untuk display all account/account total dll
     private LinkedList<Account> accounts;
 
     public Bank() {
@@ -14,18 +16,19 @@ public class Bank {
     public LinkedList<Account> getAccounts() {
         return accounts;
     }
-    public int getAccountTotals(){
+
+    public int getAccountTotals() {
         return this.accounts.size();
     }
 
-    public void displayAllAccount(){
+    public void displayAllAccount() {
         if (accounts.isEmpty()) {
             System.out.println("No accounts found.");
             return;
         }
 
         for (int i = 0; i < accounts.size(); i++) {
-            System.out.println((i+1)+".");
+            System.out.println((i + 1) + ".");
             System.out.println("Account Number : " + accounts.get(i).getAccountNumber());
             System.out.println("Account Pin : " + accounts.get(i).getPin());
             System.out.println("Balance : " + accounts.get(i).getBalance());
@@ -39,7 +42,7 @@ public class Bank {
         }
 
         for (int i = 0; i < accounts.size(); i++) {
-            System.out.println((i+1) + ". " + accounts.get(i).getAccountNumber());
+            System.out.println((i + 1) + ". " + accounts.get(i).getAccountNumber());
         }
     }
 
