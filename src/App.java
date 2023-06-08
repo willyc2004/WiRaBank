@@ -96,7 +96,7 @@ public class App {
                     amount = 0;
                     try {
                         Scanner s = new Scanner(System.in);
-                        System.out.println("Enter the amount you want to deposit to " + curr.getAccountNumber());
+                        System.out.println("Enter the amount you want to deposit to " + receiver.getAccountNumber());
                         amount = s.nextInt();
                     } catch (Exception e) {
 
