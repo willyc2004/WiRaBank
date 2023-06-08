@@ -6,7 +6,7 @@ public class Account {
     private Stack<Transaction> transactionHistory;
     Connector con = new Connector();
 
-    //account punya attributes berikut, ada attributes transaction history STACK, 1 user bisa banyak transaction history
+    //account punya attributes berikut, ada attributes transaction history STACK, 1 user bisa banyak transaction history.
 
     public Account(String accountNumber, String pin, int balance) {
         this.accountNumber = accountNumber;
