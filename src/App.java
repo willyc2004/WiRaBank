@@ -237,7 +237,7 @@ public class App {
 
     public void Logo() {
         System.out.println(
-                "██╗    ██╗██╗██████╗  █████╗ ██████╗  █████╗ ███╗   ██╗██╗  ██╗\n" +
+                        "██╗    ██╗██╗██████╗  █████╗ ██████╗  █████╗ ███╗   ██╗██╗  ██╗\n" +
                         "██║    ██║██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝\n" +
                         "██║ █╗ ██║██║██████╔╝███████║██████╔╝███████║██╔██╗ ██║█████╔╝ \n" +
                         "██║███╗██║██║██╔══██╗██╔══██║██╔══██╗██╔══██║██║╚██╗██║██╔═██╗ \n" +
@@ -254,7 +254,7 @@ public class App {
         try {
             Scanner s = new Scanner(System.in);
             System.out.println("Welcome to Wirabank!");
-            System.out.println("1. Login Account\n2. Register Account\n3. View All Accounts");
+            System.out.println("1. Login Account\n2. Register Account\n3. View All Accounts\n4. Exit");
             System.out.print("Choose: ");
             landing = s.nextInt();
         } catch (Exception e) {
@@ -271,6 +271,11 @@ public class App {
                 bank.displayAllAccount();
                 loginAccount();
                 break;
+            case 4:
+                System.out.println("=================================================");
+                System.out.println("Thank You For Using WiraBank, Your Trusted BANK!");
+                Logo();
+                System.exit(0);
             default:
                 System.out.println("Invalid Input!");
                 loginAccount();
